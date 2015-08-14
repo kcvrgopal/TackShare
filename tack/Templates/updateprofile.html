@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8" />
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+        <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/style2.css" />
+		<link rel="stylesheet" type="text/css" href="/static/css/animate-custom.css" />
+
+    <script type="text/javascript" src="/static/jquery-1.6.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/semantic/semantic.min.css" />
+    <script type="text/javascript" src="/static/css/semantic/semantic.min.js"></script>
+
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Update Profile</title>
+</head>
+<body>
+<div class="ui inverted tiered menu">
+    <div class="right menu">
+        <div class="item">
+            <img src="/static/images/tackshare.png" alt="TackShare"  width="300" height="50">
+        </div>
+        <div class="item">
+            <a class="item" href="/">
+                <i class="home icon"></i> Home
+            </a>
+        </div>
+        <div class="ui simple dropdown item">
+            <i class="bookmark icon"></i>Actions<i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/createtack">Create Tack</a>
+                <a class="item" href="/createboard">Create Board</a>
+                <a class="item" href="/newurltack">Create Tack from Url</a>
+            </div>
+        </div>
+        <div class="ui simple dropdown item">
+            <i class="user icon"></i>User<i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/update">Update Profile</a>
+                <a class="item" href="/manageemail">Email Management</a>
+                <a class="item" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="container">
+        <section>
+            <div id="container_demo">
+                <div id="wrapper">
+                    <div id="updateprofile" class="animate form" >
+                            {{ status }}
+                            <form   name=" registerform"autocomplete="on" action="/profileupdate" method="post">
+                                <h1> Update Profile </h1>
+                                <p>
+                                    <label for="fnamesignup" class="fname" data-icon="e" > First Name</label>
+                                    <input id="fullname" name="firstname" required="required" type="text" value={{ firstname }} readonly/>
+                                </p>
+                                <p>
+                                    <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
+                                    <input id="username" name="username" required="required" type="text" value={{ username }} readonly />
+                                </p>
+                                <p>
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
+                                    <input id="password1" name="password" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p>
+                                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
+                                    <input id="passwordAgain" name="passwordAgain" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p class="signin button">
+									<input type="submit" value="Update Profile"/>
+                                    <a href="/">
+                                    <input type="button" value="Cancel"/></a>
+								</p>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+
+</body>
+</html>

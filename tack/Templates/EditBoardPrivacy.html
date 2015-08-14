@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Board Privacy</title>
+    <meta charset="UTF-8" />
+
+    <script type="text/javascript" src="/static/jquery-1.6.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/semantic/semantic.min.css" />
+    <script type="text/javascript" src="/static/css/semantic/semantic.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style2.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/animate-custom.css" />
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+<div class="ui inverted tiered menu">
+    <div class="left menu">
+        <div class="item">
+            <img src="/static/images/tackshare.png" alt="TackShare"  width="300" height="50">
+        </div>
+    </div>
+    <div class="right menu">
+        <div class="item">
+            <a class="item" href="/">
+                <i class="home icon"></i> Home
+            </a>
+        </div>
+        <div class="ui simple dropdown item">
+            <i class="bookmark icon"></i>Actions<i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/createtack">Create Tack</a>
+                <a class="item" href="/createboard">Create Board</a>
+                <a class="item" href="/newurltack">Create Tack from Url</a>
+            </div>
+        </div>
+        <div class="ui simple dropdown item">
+            <i class="user icon"></i>User<i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/update">Update Profile</a>
+                <a class="item" href="/manageemail">Email Management</a>
+                <a class="item" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <section>
+        <div id="container_demo">
+            <div id="wrapper">
+                <div id="updateBoard" class="ui form segment" >
+                    <form action="/changeBoardPrivacy" method="post" enctype="multipart/form-data">
+{#                        {{ board.name }}#}
+                        <div class="field">
+                            <label for="board_privacy">Board Visibility:</label><br>
+                            <div class="grouped inline fields">
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input id="private" type="radio" name="board_privacy" value="Private" {% if board.privacy == 'Private' %} checked {% endif %}>
+                                        <label for="private">Private</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui radio checkbox">
+                                        <input id="public" type="radio" name="board_privacy" value="Public" {% if board.privacy == 'Public' %} checked {% endif %} >
+                                        <label for="public">Public</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="boardName" value="{{ board.name }}">
+                        <input class="ui button blue" type="submit" name="submit" value="Update">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

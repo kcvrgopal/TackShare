@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="/static/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript">
+        //Function to submit the form
+        function execute()
+        {
+            if(document.getElementById('file').value!=''||document.getElementById('img_url').value!='')
+            {
+                document.sender.submit();
+            }
+            else
+            {
+                alert("Upload a file or provide a url to create a tack");
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#submitBoard").click(function(){
+                event.preventDefault();
+                var data = $('form#boardform').serialize();
+                $.post('/saveBoard', data, function(msg) {
+                    if (msg.result == "success"){
+                        $("#boardform").fadeOut(500);
+                        var bn = (document).getElementById("newboardname").value;
+                        var n = (document).getElementById("new_board");
+                        n.value = bn;
+                    }
+                    else {
+                        alert(msg);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //open popup
+            $("#createBoardForm").click(function(){
+                $("#boardform").fadeIn(1000);
+                positionPopup();
+            });
+
+            //close popup
+            $("#close").click(function(){
+                $("#boardform").fadeOut(500);
+            });
+        });
+
+        //position the popup at the center of the page
+        function positionPopup(){
+            if(!$("#boardform").is(':visible')){
+                return;
+            }
+            $("#boardform").css({
+                left: ($(window).width() - $('#boardform').width()) / 2,
+                top: ($(window).width() - $('#boardform').width()) / 7,
+                position:'absolute'
+            });
+        }
+
+        //maintain the popup at center of the page when browser resized
+        $(window).bind('resize',positionPopup);
+
+    </script>
+    <style>
+        #boardform{
+            position: absolute;
+            border: 5px solid gray;
+            font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+            font-weight: 400;
+            font-size: 15px;
+            color: #1d3c41;
+            overflow-y: scroll;
+            border-radius: 5px;
+            padding: 10px;
+            background: white;
+            width: auto;
+            height: auto;
+        }
+        #createBoard{
+            display: block;
+            width: auto;
+            text-align: center;
+            padding: 6px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 0 auto;
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+    {##}
+    {#    <script type="text/javascript">#}
+    {#        $('.ui.selection.dropdown')#}
+    {#            .dropdown()#}
+    {#        ;#}
+    {#    </script>#}
+    <link rel="stylesheet" type="text/css" href="/static/css/semantic/semantic.min.css" />
+    <script type="text/javascript" src="/static/css/semantic/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/shadowbox/shadowbox.css">
+    <script type="text/javascript" src="/static/shadowbox/shadowbox.js"></script>
+    <script type="text/javascript">
+        Shadowbox.init();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style2.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/animate-custom.css" />
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Create Tack</title>
+</head>
+<body>
+<div class="ui inverted tiered menu">
+    <div class="left menu">
+        <div class="item">
+            <img src="/static/images/tackshare.png" alt="TackShare"  width="300" height="50">
+        </div>
+    </div>
+    <div class="right menu">
+        <div class="item">
+            <a class="item" href="/">
+                <i class="home icon"></i> Home
+            </a>
+        </div>
+        <div class="ui simple dropdown item">
+            <i class="bookmark icon"></i>Actions<i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/createtack">Create Tack</a>
+                <a class="item" href="/createboard">Create Board</a>
+                <a class="item" href="/newurltack">Create Tack from Url</a>
+            </div>
+        </div>
+        <div class="ui simple dropdown item">
+            <i class="user icon"></i>User<i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/update">Update Profile</a>
+                <a class="item" href="/manageemail">Email Management</a>
+                <a class="item" href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <section>
+        <div id="container_demo">
+            <div id="wrapper">
+                <div id="createtack" class="ui form segment" >
+                    <form id="sender" name="sender" action="/saveTack" method="post" enctype="multipart/form-data">
+                        <div class="field">
+                            <label for="tack_name">Filename:</label>
+                            <div class="input">
+                                <input type="text" name="tack_name" placeholder="Name for your Tack"></br>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="file">Image/Video:</label>
+                            <div class="input">
+                                <input type="file" name="file" id="file"><br>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="img_url">Or URL:</label>
+                            <div class="input">
+                                <input type="url" id="img_url" name="img_url" placeholder="URL of image/video"></br>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="tack_url">Link to website:</label>
+                            <div class="input">
+                                <input type="url" id="tack_url" name="tack_url" placeholder="Bookmark this link"></br>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="tags">Tags:</label>
+                            <div class="input">
+                                <input type="text" name="tags" placeholder="Tags separated by space"></br>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Add to Existing Board:</label>
+                            <select name="ex_board">
+                                <option value=""></option>
+                                {% for board in boards %}
+                                    <option value="{{ board.name }}">{{ board.name }}</option>
+                                {% endfor %}
+                            </select><br>
+                        </div>
+                        <a href="#" id="createBoardForm"> OR Create New Board</a>
+                        <input id="new_board" name="new_board" type="hidden">
+                        <br />
+
+                        <input class="ui button blue" type="button" name="submitit" value="Create!" onclick="execute()">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+</body>
+</html>
+<form class="ui form segment" name="boardform" id="boardform" style="display:none" method="post" enctype="multipart/form-data" >
+    <label for="board_name">Name:</label>
+    <input type="text" id="newboardname" name="board_name" placeholder="Name for your Board"></br>
+    <label for="board_desc">Description:</label>
+    <input type="text" name="board_desc" placeholder="Description for your Board"></br>
+    <label for="board_privacy">Board Visibility:</label><br>
+    <input type="radio" name="board_privacy" value="Private">Private
+    <input type="radio" name="board_privacy" value="Public">Public<br>
+    <input class="ui button blue" id="submitBoard" type="button" name="submitBoard" value="Create Board!"><br>
+    <a href="#" id="close">Close</a>
+</form>
+
+
